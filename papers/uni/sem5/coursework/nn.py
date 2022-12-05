@@ -43,6 +43,15 @@ def main():
     test_loss, test_acc = model.evaluate(test_samples,  test_labels)
     print('\nTest accuracy:', test_acc)
 
+    predict = model.predict(test_samples)
+
+    embedding = MDS(n_components=2, metric=True, n_init=10, eps=0.001)
+    reducted = embedding.fit_transform(predict)
+    print(reducted)
+
+    plt.scatter(reducted[:, 0], reducted[:, 1], c=test_labels)
+    plt.show()
+
 
 if __name__ == "__main__":
     main()
